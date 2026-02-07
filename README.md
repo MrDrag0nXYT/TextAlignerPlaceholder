@@ -1,8 +1,46 @@
 <div align="center">
   <h1>TextAligner</h1>
-  <p>A simple extension for PlaceholderAPI to configure text alignment to center or right side</p>
+  <p>Simple expansion for PlaceholderAPI to configure text alignment</p>
   <u>English</u> | <b><a href="README_RU.md">Russian</a></b>
 </div>
+
+# 🤔 How is it work?
+
+This extension adds spaces before a line to align it to the specified number of characters
+
+<details><summary>Usage showcase with DeluxeMenus</summary>
+
+```yaml
+items:
+  welcome:
+    material: GLOWSTONE
+    slot: 22
+    display_name: "&#676767+=========================+"
+    lore:
+      - "&#fcfcfc          Centered text" # manually
+      - "&#fcfcfc%textaligner_center;32;{luckperms_prefix} {player_name}%" # with placeholder
+      - " "
+      - "&#fcfcfc                           Right text" # manually
+      - "&#fcfcfc%textaligner_right;32;{luckperms_prefix} {player_name}%" # with placeholder
+      - " "
+      - "&#676767+=========================+"
+```
+
+![deluxemenus-showcase.png](docs/deluxemenus-showcase.png)
+
+</details>
+
+# 📌 Placeholders
+
+- `%textaligner_center;<length>;<Text with {placeholder}>%`
+- `%textaligner_right;<length>;<Text with {placeholder}>%`
+
+Where:
+
+- `<length>` - line length for alignment;
+- `<Text with {placeholder}>` - text with PlaceholderAPI placeholders with `{}` instead of `%`
+
+Replace with your values without `<>`, for example: `%textaligner_center;32;Hello, {luckperms_prefix} {player_name}%`
 
 # 💾 Requirements
 
@@ -16,18 +54,6 @@
    `/plugins/PlaceholderAPI/expansions/`
 3. Run `/papi register TextAlignerPlaceholder-[VERSION].jar` or restart server.
    _(Replace `[VERSION]` to TextAlignerPlaceholder version)_
-
-# 📌 Placeholders
-
-- `%textaligner_center;<length>;<Text with {placeholder}>%`
-- `%textaligner_right;<length>;<Text with {placeholder}>%`
-
-Where:
-
-- `<length>` - line length for alignment;
-- `<Text with {placeholder}>` - text with PlaceholderAPI placeholders with `{}` instead of `%`
-
-Replace with your values without `<>`, for example: `%textaligner_center;32;Hello, {luckperms_prefix} {player_name}%`
 
 # ⚙️ Other information
 

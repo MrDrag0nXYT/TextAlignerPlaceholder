@@ -1,8 +1,46 @@
 <div align="center">
   <h1>TextAligner</h1>
-  <p>Простое расширение для PlaceholderAPI для настройки выравнивания текста по центру или правой стороне</p>
+  <p>Простое расширение для PlaceholderAPI для настройки выравнивания текста</p>
   <b><a href="README.md">English</a></b> | <u>Russian</u>
 </div>
+
+# 🤔 Как это работает?
+
+Это расширение добавляет пробелы перед строкой для выравнивания до указанного количества символов
+
+<details><summary>Пример использования с DeluxeMenus</summary>
+
+```yaml
+items:
+  welcome:
+    material: GLOWSTONE
+    slot: 22
+    display_name: "&#676767+=========================+"
+    lore:
+      - "&#fcfcfc          Centered text" # вручную
+      - "&#fcfcfc%textaligner_center;32;{luckperms_prefix} {player_name}%" # с плейсхолдером
+      - " "
+      - "&#fcfcfc                           Right text" # вручную
+      - "&#fcfcfc%textaligner_right;32;{luckperms_prefix} {player_name}%" # с плейсхолдером
+      - " "
+      - "&#676767+=========================+"
+```
+
+![deluxemenus-showcase.png](docs/deluxemenus-showcase.png)
+
+</details>
+
+# 📌 Плейсхолдеры
+
+- `%textaligner_center;<length>;<Text with {placeholder}>%`
+- `%textaligner_right;<length>;<Text with {placeholder}>%`
+
+Где:
+
+- `<length>` - длина строки под которую нужно выровнять;
+- `<Text with {placeholder}>` - текст с плейсхолдерами из PlaceholderAPI с `{}` вместо `%`
+
+Замените своими значениями без `<>`, например: `%textaligner_center;32;Привет, {luckperms_prefix} {player_name}%`
 
 # 💾 Системные требования
 
@@ -16,18 +54,6 @@
    `/plugins/PlaceholderAPI/expansions/`
 3. Используйте для запуска команду `/papi register TextAlignerPlaceholder-[VERSION].jar` или перезапустите сервер.
    _(Замените [VERSION] на версию TextAlignerPlaceholder)_
-
-# 📌 Плейсхолдеры
-
-- `%textaligner_center;<length>;<Text with {placeholder}>%`
-- `%textaligner_right;<length>;<Text with {placeholder}>%`
-
-Где:
-
-- `<length>` - длина строки под которую нужно выровнять;
-- `<Text with {placeholder}>` - текст с плейсхолдерами из PlaceholderAPI с `{}` вместо `%`
-
-Замените своими значениями без `<>`, например: `%textaligner_center;32;Привет, {luckperms_prefix} {player_name}%`
 
 # ⚙️ Дополнительно
 
