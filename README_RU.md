@@ -23,6 +23,9 @@ items:
       - "&#fcfcfc                           Right text" # вручную
       - "&#fcfcfc%textaligner_right;32;{luckperms_prefix} {player_name}%" # с плейсхолдером
       - " "
+      - "&#fcfcfcBetween                        text" # вручную
+      - "&#fcfcfc%textaligner_between;32;{luckperms_prefix};{player_name}%" # с плейсхолдером
+      - " "
       - "&#676767+=========================+"
 ```
 
@@ -34,6 +37,7 @@ items:
 
 - `%textaligner_center;<length>;<Text with {placeholder}>%`
 - `%textaligner_right;<length>;<Text with {placeholder}>%`
+- `%textaligner_between;<length>;<Left text with {placeholder}>;<Right text with {placeholder}>%`
 
 Где:
 

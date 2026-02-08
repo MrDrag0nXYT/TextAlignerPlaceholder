@@ -21,7 +21,7 @@ public final class TextAlignerPlaceholder extends PlaceholderExpansion {
 
     @Override
     public @NotNull String getVersion() {
-        return "1.0.0";
+        return "1.1.0";
     }
 
     @Override
@@ -33,41 +33,54 @@ public final class TextAlignerPlaceholder extends PlaceholderExpansion {
     /*
      * %textaligner_center;<length>;<Text with {placeholder}>%
      * %textaligner_right;<length>;<Text with {placeholder}>%
+     * %textaligner_between;<length>;<Left text with {placeholder}>;<Right text with {placeholder}>%
      */
     @Override
     public @Nullable String onRequest(OfflinePlayer player, @NotNull String paramsString) {
-        String[] params = paramsString.split(";", 3);
+        String[] params = paramsString.split(";");
         if (params.length < 3) return null;
 
-        return switch (params[0]) {
-            case "center" -> handleTextAlign(player, params, SpaceStyle.CENTER);
-            case "right" -> handleTextAlign(player, params, SpaceStyle.RIGHT);
+        String action = params[0];
+        Integer length = parseIntOrNull(params[1]);
+        if (length == null) return null;
+
+        return switch (action) {
+            case "center" -> handleTextAlign(player, params, length, true);
+            case "right" -> handleTextAlign(player, params, length, false);
+            case "between" -> handleBetweenTextAlign(player, params, length);
             default -> null;
         };
     }
 
 
-    private @Nullable String handleTextAlign(OfflinePlayer player, String @NotNull [] params, SpaceStyle spaceStyle) {
-        try {
-            int maxLength = Integer.parseInt(params[1]);
-            String parsed = PlaceholderAPI.setBracketPlaceholders(player, params[2]);
+    private String handleTextAlign(OfflinePlayer player, String @NotNull [] params, int length, boolean isCenter) {
+        String parsed = PlaceholderAPI.setBracketPlaceholders(player, params[2]);
 
-            int diff = maxLength - parsed.length();
-            if (diff <= 0) return parsed;
+        int diff = length - parsed.length();
+        if (diff <= 0) return parsed;
 
-            int spaces = switch (spaceStyle) {
-                case CENTER -> diff / 2;
-                case RIGHT -> diff;
-            };
-
-            return SPACE.repeat(spaces) + parsed;
-
-        } catch (NumberFormatException ignored) {
-        }
-        return null;
+        int spaces = isCenter ? diff / 2 : diff;
+        return SPACE.repeat(spaces) + parsed;
     }
 
-    private enum SpaceStyle {
-        CENTER, RIGHT
+    private @Nullable String handleBetweenTextAlign(OfflinePlayer player, String @NotNull [] params, int length) {
+        if (params.length < 4) return null;
+
+        String parsedLeft = PlaceholderAPI.setBracketPlaceholders(player, params[2]);
+        String parsedRight = PlaceholderAPI.setBracketPlaceholders(player, params[3]);
+
+        int spaces = length - parsedLeft.length() - parsedRight.length();
+        if (spaces <= 0) return parsedLeft + SPACE + parsedRight;
+
+        return parsedLeft + SPACE.repeat(spaces) + parsedRight;
+    }
+
+
+    private @Nullable Integer parseIntOrNull(String str) {
+        try {
+            return Integer.parseInt(str);
+        } catch (NumberFormatException ignored) {
+            return null;
+        }
     }
 }
